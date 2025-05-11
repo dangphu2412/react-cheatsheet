@@ -154,7 +154,24 @@ function BookFilter() {
   ├─ Step 3: DOM is now visible in the browser 👀
   └─ Step 4: useEffect runs (AFTER render) ⚡
 ```
-- Let's break down into steps that React execute the transformation:
+### Let's break down into steps that React execute the transformation:
   - Trigger
   - Render
   - Commit
+
+- Trigger render phase
+  - What causes the trigger happens in React?
+    - First render 
+    - A state change (self or ancestors)
+- Render phase
+  - React will **call** the components to figure out what to display on the screen
+  - On initial render, it calls root component.
+  - For subsequent render, it calls the components that have state updated.
+- Commit phase:
+  - Decide what to update into the DOM:
+    - On initial render: use .appendChild() to append DOM.
+    - On re-renders, React will apply the minimal changes to the **REAL** DOM.
+
+### So the question is how React know what to compare the changes?
+Do they store a snapshot of DOM for this reason? If follow that way, isn't it storage wasty when both React components structure and DOM stored?
+> That's where Virtual DOM comes into the play.
