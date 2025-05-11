@@ -87,3 +87,18 @@ function BookFilter({ search, bestSellerFilter }: BookFilterProps) {
 }
 ```
 - So usually, we see an object have their own state, human can be angry, sad, ...etc. component is so on.
+## State
+- Yes, it is component memory, their state.
+- Let's think of it as object
+```typescript jsx
+function BookFilter() {
+  const [search, setSearch] = useState('');
+  const [isBestSeller, setIsBestSeller] = useState(false);
+  
+  return <div>
+    <input name={'search'} value={search} onChange={setSearch} />
+    <input name={'best-seller-filter'} type={'radio'} value={isBestSeller} onChange={setIsBestSeller} />
+  </div>
+}
+```
+- So the book filter can have their own memory, when we change search characteristic, we change best seller radio filter, ...etc.
