@@ -1,0 +1,11 @@
+{
+  "name": "react-cheatsheet",
+  "version": "1.0.0",
+  "description": "## React Element",
+  "main": "index.js",
+  "scripts": {
+    "run": "index.js"
+  },
+  "author": "dangphu241299@gmail.com",
+  "license": "ISC"
+}
