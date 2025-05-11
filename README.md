@@ -102,3 +102,59 @@ function BookFilter() {
 }
 ```
 - So the book filter can have their own memory, when we change search characteristic, we change best seller radio filter, ...etc.
+- But sometimes, an object doesn't need its own state, or receive input from a parent component. It just need to synchronize from other external storage system
+## Effect
+- So that is the reason why useEffect born. Don't mess up with useEffect, read this post carefully: https://react.dev/learn/you-might-not-need-an-effect
+```typescript jsx
+function BookFilter() {
+  const [search, setSearch] = useState('');
+  const [isBestSeller, setIsBestSeller] = useState(false);
+
+  useEffect(function syncFilterSettings() {
+    getFilterSettings().then((data) => {
+      setSearch(data.search);
+      setIsBestSeller(data.isBestSeller);
+    })
+  }, []);
+  
+  return <div>
+    <input name={'search'} value={search} onChange={setSearch} />
+    <input name={'best-seller-filter'} type={'radio'} value={isBestSeller} onChange={setIsBestSeller} />
+  </div>
+}
+```
+> We go a bit further in the reviewing basics of React stuff, let's dig deeply into how react render components, elements
+
+## Render
+- Firstly, we need to know, what is render means?
+- This is the process that React transform components into DOM that can be displayed on the UI.
+```typescript jsx
+function BookFilter() {
+  const [search, setSearch] = useState('');
+  const [isBestSeller, setIsBestSeller] = useState(false);
+  
+  return <div>
+    <input name={'search'} value={search} onChange={setSearch} />
+    <input name={'best-seller-filter'} type={'radio'} value={isBestSeller} onChange={setIsBestSeller} />
+  </div>
+}
+
+// This will transform into
+<div>
+  <input name="search" />
+  <input name="best-seller-filter" />
+</div>
+```
+- You will not see familiar on-event like normal JS event like: onclick, ...etc. We will talk about that later.
+- About the first render:
+```
+  [ COMPONENT MOUNTING PHASE ]
+  ├─ Step 1: JSX → Virtual DOM 🧱
+  ├─ Step 2: Virtual DOM → Real DOM 🏗️
+  ├─ Step 3: DOM is now visible in the browser 👀
+  └─ Step 4: useEffect runs (AFTER render) ⚡
+```
+- Let's break down into steps that React execute the transformation:
+  - Trigger
+  - Render
+  - Commit
